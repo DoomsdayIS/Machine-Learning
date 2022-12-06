@@ -34,3 +34,37 @@
 5-8) ...
 
 [Мой рабочий колаб](lab2/lab2.ipynb)
+
+### [Лабораторная 3](lab3)
+#### Линейная регрессия, gradient descent(batch/mini-batch/stochastic). Регуляризация. MAE/MSE/RMSE
+
+Теория: https://academy.yandex.ru/handbook/ml/article/linear-models
+Реализация градиентного спуска
+
+```python
+
+def gradient2(X, y, n = 10000, k = 25, lmbd = 1, alpha = 0.01):
+  X = pd.DataFrame(X)
+  y = pd.DataFrame(y)
+  w = np.random.randn(len(X.axes[1]))
+  b = 0
+  for i in range(n):
+    index = X.sample(k).index.to_list()
+    X_tr = X.loc[index].values
+    y_tr = y.loc[index].values
+        
+    for j in range(k):
+      err = X_tr[j].dot(w) + b - y_tr[j]
+      Loss_w = 2 * X_tr[j] * err + (2 * lmbd * w) / k
+      Loss_b = (2 / k) * err
+      w = w - alpha * Loss_w
+      b = b - alpha * Loss_b
+    alpha = alpha * 0.98
+
+  return w,b
+
+
+```
+[Задания 1-4](lab3/lab3_1.ipynb)
+
+[Задания 5-8](lab3/lab3_2.ipynb)
